@@ -1,0 +1,11 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block title %}
+CASHHIVE-Success
+{% endblock %}
+{% block body %}
+<div class="login-box">
+<h2>Account Created successfully</h2>
+    <a class="btn btn-tansparnt" href="{% url 'userApp:userpg' %}">go to home page</a>
+</div>
+{% endblock %}

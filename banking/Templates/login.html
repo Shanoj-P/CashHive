@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+CASHHIVE-LOGIN
+{% endblock %}
+{% block body %}
+
+<div class="login-box">
+  <h2>Login</h2>
+  <form method="post" action="{% url 'CredentalApp:login' %}">
+    {% csrf_token %}
+    <div class="user-box">
+      <input type="text" name="username" required="">
+      <label>Username</label>
+    </div>
+    <div class="user-box">
+      <input type="password" name="password" required="">
+      <label>Password</label>
+    </div>
+    <div class="user-box" style="color:#66ffff">
+      {% for msg in messages %}
+      {{msg}}
+      {% endfor %}
+      <label></label>
+    </div>
+    <a href="">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <input type="submit" class="btn bg-transparent">
+    </a>
+  </form>
+</div>
+
+{% endblock %}

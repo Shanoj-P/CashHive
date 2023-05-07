@@ -1,0 +1,24 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block title %}
+CASHHIVE-WELCOME
+{% endblock %}
+{% block body %}
+<div>
+    <div class="custom-bg" style="background-image:url({% static 'img/credit_cards.png' %})">
+        <div class="text-center center">
+            <div class="custom-title ">
+            CASHHIVE
+            </div>
+            <div class="custom-title1 ">
+            Get your Bank Account now
+            </div>
+            <div>
+                <a href="{% url 'userApp:cardpg' %}"><button class="btn " style="background-color:white;width:150px">APPlY NOW</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

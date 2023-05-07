@@ -1,0 +1,100 @@
+{% extends 'base.html'  %}
+{% load static %}
+{% block title %}
+CASHHIVE-CREDIT CARD
+{% endblock %}
+{% block body %}
+
+<div class="login-box1">
+  <h2>Open Your Bank Account</h2>
+  <form enctype="multipart/form-data" method="post" id="AccountForm" data-branches-url="{% url 'userApp:ajax_load_branches' %}" action="{% url 'userApp:add' %}">
+    {% csrf_token %}
+    {% for field in form %}
+      <div {% if field.label != 'Gender' %}{% if field.label != 'District' %}{% if field.label != 'Branch' %}{% if field.label != 'Account' %}class= "user-box"{% endif %}{% endif %}{% endif %}{% endif %}>
+          {% if field.label != 'Gender' %}
+          {% if field.label != 'Branch' %}{% if field.label != 'Account' %}
+
+          {{field}}
+          <label >
+              {% if field.label == 'Cc' %}
+              <br>Credit Card
+              {% elif field.label == 'Db' %}
+              <br>Debit Card
+              {% elif field.label == 'Cb' %}
+              <br>Cheque Book
+              {% else %}
+              {{field.label}}
+              {% endif %}
+          </label>
+          {% endif %}{% endif %}{% endif %}
+          {% if field.label == 'Gender' %}
+          <label style="color:white">{{field.label}}</label>
+          {{field}}
+          {% endif %}
+
+          {% if field.label == 'Branch' %}
+          <div class="user-box">
+      <input type="date" name="dob"  style="-webkit-appearance: none;">
+      <label>DOB</label>
+    </div>
+          <label style="color:white">District</label>
+          <select id="id_district" name="district" form="AccountForm">
+              <option value="">select</option>
+              {% for i in dist %}
+            <option value="{{i.id}}">{{i.name}}</option>
+              {% endfor %}
+          </select><br>
+          <label style="color:white">{{field.label}}</label>
+          {{field}}<br>
+          {% endif %}
+        {% if field.label == 'Account' %}
+          <label style="color:white">{{field.label}}</label>
+          {{field}}<br>
+          {% endif %}
+
+      </div>
+      {% endfor %}
+
+    <a href="">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <input type="submit" class="btn bg-transparent">
+    </a>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    $("#id_district").change(function () {
+        const url = $("#AccountForm").attr("data-branches-url");  // get the url of the `load_cities` view
+        const districtId = $(this).val();
+          // get the selected country ID from the HTML input
+
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'district_id': districtId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                console.log(data)
+                $("#id_branch").html(data);  // replace the contents of the city input with the data that came from the server
+                /*
+
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (city) {
+                    html_data += `<option value="${city.id}">${city.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_city").html(html_data);
+
+                */
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}
+
